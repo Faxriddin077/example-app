@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AccountController, ProductController};
+use App\Http\Controllers\{AccountController, CategoryController, ProductController};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,15 @@ Route::controller(AccountController::class)->prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(CategoryController::class)->prefix('categories')
+        ->group(function () {
+            Route::get('', 'getAll')->name('categories.getAll');
+            Route::post('', 'create')->name('categories.create');
+            Route::get('{category}', 'getOne')->name('categories.getOne');
+            Route::put('{category}', 'update')->name('categories.update');
+            Route::delete('{category}', 'remove')->name('categories.remove');
+        });
+
     Route::controller(ProductController::class)->prefix('products')
         ->group(function () {
             Route::get('', 'getAll')->name('products.getAll');

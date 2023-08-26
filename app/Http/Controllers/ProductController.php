@@ -18,9 +18,9 @@ class ProductController extends Controller
     {
 //        $this->authorize('viewAny', Product::class);
 
-        $products = Products::getAllProducts($request->getDto());
-
-        return ProductResource::collection($products);
+        return ProductResource::collection(
+            Products::getAllProducts($request->getDto())
+        );
     }
 
     /**
@@ -52,6 +52,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

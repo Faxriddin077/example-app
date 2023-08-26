@@ -26,7 +26,7 @@ class ProductService
         $product = new Product();
         $product->name = $dto->getName();
         $product->price = $dto->getPrice();
-        $product->status = $dto->getStatus();
+        $product->status = $dto->getStatus() ?? 1;
         $product->category_id = $dto->getCategoryId();
 
         $date = date('my');

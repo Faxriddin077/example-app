@@ -3,54 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Facades\Categories;
+use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Requests\FilterCategoryRequest;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getAll(FilterCategoryRequest $request)
     {
-        //
+        return CategoryResource::collection(
+            Categories::getAllCategories($request->get('search'))
+        );
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(CategoryRequest $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return new CategoryResource(Categories::create($request->getDto()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function getOne(Category $category)
     {
-        //
+        return new CategoryResource($category);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         //
     }
@@ -58,8 +48,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function remove(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

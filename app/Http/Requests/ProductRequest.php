@@ -27,8 +27,8 @@ class ProductRequest extends FormRequest
             'price' => 'required|integer|min:1000|max:10000000',
             'status' => 'integer',
             'category_id' => 'integer|exists:categories,id',
-            'main_image' => 'required|image|min:1',
-            'images' => 'required|array',
+            'main_image' => 'image|min:1',
+            'images' => 'array',
         ];
     }
 
@@ -40,7 +40,7 @@ class ProductRequest extends FormRequest
         return new CreateProductDto(
             name: $this->input('name'),
             price: $this->input('price'),
-            status: $this->input('category_id'),
+            status: $this->input('status'),
             category_id: $this->input('category_id'),
             main_image: $this->input('main_image'),
             images: $this->input('images')
