@@ -25,6 +25,8 @@ class CategoryController extends Controller
      */
     public function create(CategoryRequest $request)
     {
+        $this->authorize('create', Category::class);
+
         return new CategoryResource(Categories::create($request->getDto()));
     }
 
@@ -42,7 +44,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $this->authorize('update', $category);
+        return new CategoryResource($category);
     }
 
     /**

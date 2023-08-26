@@ -34,15 +34,16 @@ class Category extends Model
 
     protected $fillable = ['title', 'description', 'parent_id'];
 
-    public function children()
-    {
-        return $this->hasMany(self::class, 'parent_id');
-    }
-
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
+
+    public function child()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class);

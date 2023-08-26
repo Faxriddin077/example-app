@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Facades\Products;
-use Illuminate\Http\Request;
-use App\Http\Requests\FilterProductRequest;
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Http\Requests\FilterProductRequest;
 
 class ProductController extends Controller
 {
@@ -16,8 +15,6 @@ class ProductController extends Controller
      */
     public function getAll(FilterProductRequest $request)
     {
-//        $this->authorize('viewAny', Product::class);
-
         return ProductResource::collection(
             Products::getAllProducts($request->getDto())
         );
@@ -28,6 +25,8 @@ class ProductController extends Controller
      */
     public function create(ProductRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         return new ProductResource(Products::create($request->getDto()));
     }
 
@@ -42,9 +41,11 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $this->authorize('update', $product);
+
+        return new ProductResource(Products::update($product, $request->getDto()));
     }
 
     /**

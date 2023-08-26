@@ -2,7 +2,7 @@
 
 namespace App\DTO\Product;
 
-class CreateProductDto
+class ProductDto
 {
     private string $name;
 
@@ -14,7 +14,7 @@ class CreateProductDto
 
     private $main_image;
 
-    private array $images;
+    private array|null $images;
 
     /**
      * @param $name
@@ -75,9 +75,9 @@ class CreateProductDto
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getImages(): array
+    public function getImages(): array|null
     {
         return $this->images;
     }

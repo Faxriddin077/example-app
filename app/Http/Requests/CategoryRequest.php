@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\DTO\Category\CreateCategoryDto;
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -24,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:4|max:100',
-            'description' => 'required|string|max:100',
+            'description' => 'required|string|max:300',
             'parent_id' => 'integer|exists:categories,id'
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\DTO\Product\CreateProductDto;
+use App\DTO\Product\ProductDto;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -33,17 +33,17 @@ class ProductRequest extends FormRequest
     }
 
     /**
-     * @return CreateProductDto
+     * @return ProductDto
      */
-    public function getDto(): CreateProductDto
+    public function getDto(): ProductDto
     {
-        return new CreateProductDto(
+        return new ProductDto(
             name: $this->input('name'),
             price: $this->input('price'),
             status: $this->input('status'),
             category_id: $this->input('category_id'),
-            main_image: $this->input('main_image'),
-            images: $this->input('images')
+            main_image: $this->file('main_image'),
+            images: $this->file('images')
         );
     }
 }

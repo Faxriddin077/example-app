@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
         return [
             'title' => fake()->bs,
             'description' => fake()->realTextBetween(),
-            'parent_id' => fake()->randomElement([Category::factory(), null])
+            'parent_id' => Category::query()->inRandomOrder()->first() ?? null,
         ];
     }
 }
