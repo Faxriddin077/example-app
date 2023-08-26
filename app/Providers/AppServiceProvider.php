@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Interfaces\ProductRepositoryInterface;
+use App\Repositories\ProductRepository;
+use App\Services\AccountService;
 use App\Services\ProductService;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind('accountService', AccountService::class);
         $this->app->bind('productService', ProductService::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
     }
 
     /**

@@ -4,11 +4,11 @@ namespace App\DTO\Product;
 
 class FilterProductDto
 {
-    private string $search;
+    private string|null $search;
 
-    private int $status;
+    private int|null $status;
 
-    private int $category_id;
+    private int|null $category_id;
 
     private mixed $date;
 

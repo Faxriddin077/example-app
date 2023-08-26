@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use App\DTO\Product\FilterProductDto;
+use App\DTO\Product\CreateProductDto;
 use App\Models\Product;
-use Illuminate\Support\Arr;
-use App\Http\Requests\FilterProductRequest;
+use App\DTO\Product\FilterProductDto;
 use App\Interfaces\ProductRepositoryInterface;
 
 class ProductService
@@ -22,16 +21,28 @@ class ProductService
         return $this->productRepository->getAll($dto);
     }
 
-    public function create(array $data): Product
+    public function create(CreateProductDto $dto): Product
     {
-        return Product::query()->create([
-            'name' => Arr::get($data, 'name'),
-            'price' => Arr::get($data, 'email'),
-            'main_image' => Arr::get($data, 'mainImage'),
-            'images' => Arr::get($data, 'images'),
-            'status' => Arr::get($data, 'status'),
-            'category_id' => Arr::get($data, 'categoryId'),
-        ]);
+        $product = new Product();
+        $product->name = $dto->getName();
+        $product->price = $dto->getPrice();
+        $product->status = $dto->getStatus();
+        $product->category_id = $dto->getCategoryId();
+
+        $date = date('my');
+
+        if ($dto->getMainImage()) {
+            $product->main_image = (string) $dto->getMainImage()->store("products/$date", 'public');
+        }
+
+        $images = [];
+        foreach ($dto->getImages() as $image) {
+            $images[] = $image->store("products/$date", 'public');
+        }
+
+        $product->images = $images;
+        $product->save();
+        return $product;
     }
 
     public function getProductById($id)
