@@ -22,7 +22,8 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'parent_id' => $this->parent_id
+            'parent_id' => $this->parent_id,
+            'parent' => $this->whenLoaded('parent'),
         ];
     }
 }

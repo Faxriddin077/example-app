@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Builder, Collection, Factories\HasFactory,
+    Model, Relations\BelongsTo
+};
 
 /**
  * App\Models\Product
@@ -35,9 +35,16 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $with = ['category'];
+
     protected $fillable = ['name', 'price', 'main_image', 'images', 'status', 'category_id'];
 
     protected $casts = [
         'images' => 'array'
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

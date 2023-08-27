@@ -45,6 +45,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $this->authorize('update', $category);
+
         return new CategoryResource($category);
     }
 
@@ -53,6 +54,8 @@ class CategoryController extends Controller
      */
     public function remove(Category $category)
     {
+        $this->authorize('delete', $category);
+
         $category->delete();
         return response()->json([
             'success' => true

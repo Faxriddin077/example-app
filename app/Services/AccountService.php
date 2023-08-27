@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Exceptions\InvalidUserCredentialsException;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Exceptions\Account\InvalidUserCredentialsException;
 
 class AccountService
 {

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{
+    Builder, Factories\HasFactory, Model,
+    Relations\BelongsTo, Relations\HasMany
+};
 
 /**
  * App\Models\Category
@@ -32,19 +33,21 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $with = ['parent'];
+
     protected $fillable = ['title', 'description', 'parent_id'];
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function child()
+    public function child(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

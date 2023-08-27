@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AccountController, CategoryController, ProductController};
+use App\Http\Controllers\{AccountController, CartController, CategoryController, ProductController};
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('{product}', 'getOne')->name('products.getOne');
             Route::put('{product}', 'update')->name('products.update');
             Route::delete('{product}', 'remove')->name('products.remove');
+        });
+
+    Route::controller(CartController::class)->prefix('cart')
+        ->group(function () {
+            Route::get('', 'getAll')->name('cart.getAll');
+            Route::post('', 'addToCart')->name('cart.addToCart');
+            Route::delete('', 'removeFromCart')->name('cart.removeFromCart');
         });
 });
 

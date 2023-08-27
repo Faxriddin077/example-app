@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\DTO\Category\CreateCategoryDto;
-use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest

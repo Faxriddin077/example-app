@@ -10,7 +10,7 @@ use App\DTO\Category\CreateCategoryDto;
 /**
  * @method static CategoryService getAllCategories(string|null $search)
  * @method static Category create(CreateCategoryDto $dto)
- * @method static Category getCategoryById(Category|int $product)
+ * @method static Category getCategoryById(Category|int $category)
  *
  * @see CategoryService
  */
