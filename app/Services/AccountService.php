@@ -15,6 +15,7 @@ class AccountService
         return User::query()->create([
             'name' => Arr::get($data, 'name'),
             'email' => Arr::get($data, 'email'),
+            'is_admin' => Arr::get($data, 'is_admin'),
             'password' => Hash::make(Arr::get($data, 'password'))
         ]);
     }
