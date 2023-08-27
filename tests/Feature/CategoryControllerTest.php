@@ -3,14 +3,13 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\User;
-use App\Models\Category;
+use App\Models\{User, Category};
 use Illuminate\Http\UploadedFile;
 
 class CategoryControllerTest extends TestCase
 {
-    protected User $user;
     protected User $admin;
+    protected User $user;
     protected Category $category;
 
     public function setUp(): void
@@ -52,7 +51,6 @@ class CategoryControllerTest extends TestCase
     public function test_success_create_category()
     {
         $data = Category::factory()->raw();
-//        $data['image'] = UploadedFile::fake()->image('product.jpg', 150, 150)->size(10);
 
         $this->actingAs($this->admin)
             ->postJson(route('categories.create'), $data)
@@ -83,6 +81,13 @@ class CategoryControllerTest extends TestCase
 
         $this->actingAs($this->admin)
             ->putJson(route('categories.update', [$this->category->id]), $data)
+            ->assertOk();
+    }
+
+    public function test_success_delete_category()
+    {
+        $this->actingAs($this->admin)
+            ->deleteJson(route('categories.remove', [$this->category->id]))
             ->assertOk();
     }
 }

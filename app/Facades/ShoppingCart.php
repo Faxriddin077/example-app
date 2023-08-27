@@ -12,7 +12,7 @@ use App\DTO\Category\CreateCategoryDto;
 /**
  * @method static CartService getItems()
  * @method static CartService addItem(Product $product)
- * @method static void removeItem(Product $product)
+ * @method static void removeItem($productId)
  *
  * @see CartService
  */

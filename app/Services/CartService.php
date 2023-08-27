@@ -14,8 +14,16 @@ class CartService
         return Cart::query()->where('user_id', auth()->id())->get();
     }
 
-    public function addItem(Product $product)
+    /**
+     * @throws InvalidCartProductException
+     */
+    public function addItem($productId)
     {
+        $product = Product::query()->find($productId);
+        if (!$product) {
+            throw new InvalidCartProductException();
+        }
+
         $cart = Cart::query()->firstOrCreate([
             'user_id' => auth()->id(),
             'product_id' => $product->id

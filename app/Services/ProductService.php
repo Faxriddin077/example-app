@@ -66,8 +66,10 @@ class ProductService
         }
 
         $images = [];
-        foreach ($dto->getImages() as $image) {
-            $images[] = $image->store("products/$date", 'public');
+        if ($dto->getImages()) {
+            foreach ($dto->getImages() as $image) {
+                $images[] = $image->store("products/$date", 'public');
+            }
         }
 
         $product->images = $images;
